@@ -1,0 +1,24 @@
+syntax = "proto3";
+import "protobufs/Common/User.proto";
+import "protobufs/Common/Topic.proto";
+
+message FeedRequest{
+    string user_name = 1;
+}
+
+message FeedResponse{
+    repeated Publication feed = 1;
+}
+
+message TopicFeedRequest{
+    string user_name = 1;
+}
+
+message TopicFeedResponse{
+    repeated Topic topic_feed = 1;
+}
+
+service FeedGeneratorService{
+    rpc GetFeed (FeedRequest) returns (FeedResponse);
+    rpc GetTopicFeed (TopicFeedRequest) returns (TopicFeedResponse);
+}

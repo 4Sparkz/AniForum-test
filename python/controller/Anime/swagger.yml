@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: "ANIME REST API"
+  description: "An API about anime"
+  version: "1.0.0"
+
+servers:
+  - url: "/api"
+
+components:
+
+  # Schemas used in the API 
+  schemas:
+    Anime: #Anime schema that represents an anime
+      type: "object"
+      required:
+        - name
+        - genres
+        - episodes
+        - score
+        - aired
+        - synopsis
+      properties:
+        name:
+          type: "string"
+        genres:
+          type: "array"
+          items:
+            type: "string"
+        episodes:
+          type: "integer"
+        score:
+          type: "number"
+        aired:
+          type: "string"
+        synopsis:
+          type: "string"
+
+  # Parameters for paths 
+  parameters:
+    anime_name:
+      name: "anime_name"
+      description: "Name of the anime in question"
+      in: path
+      required: True
+      schema:
+        type: "string"
+    anime_genre:
+      name: "anime_genre"
+      description: "Genre of the anime"
+      in: path
+      required: True
+      schema:
+        type: "string"
+  
+paths:
+
+  # =====================================================
+  # ======================= Anime =======================
+  # =====================================================  
+  
+  /anime:
+    get:
+      operationId: "anime_controller.all_anime"
+      tags:
+        - Anime
+      summary: "Show the anime list"
+      responses:
+        "200":
+          description: "Successfully show anime list"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Anime"
+
+  /anime/anime_name/{anime_name}:
+    parameters:
+      - name: "anime_name"
+        in: path
+        required: true
+        description: "Name of the anime"
+        schema:
+          type: "string"
+    get:
+      operationId: "anime_controller.get_anime"
+      tags:
+        - Anime
+      summary: "Show a specific anime if it exists"
+      responses:
+        "200":
+          description: "Successfully show the anime"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Anime"
+        "404":
+          description: "Anime not found"
+
+  /anime/anime_name/{anime_name}/related:
+    parameters:
+      - name: "anime_name"
+        in: path
+        required: true
+        description: "Name of the anime"
+        schema:
+          type: "string"
+    get:
+      operationId: "anime_controller.get_similar_anime"
+      tags:
+        - Anime
+      summary: "Show related anime to the specific anime"
+      responses:
+        "200":
+          description: "Successfully show related anime"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Anime"
+        "404":
+          description: "Anime not found"

@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+// ===========================> ANIME PROTO FILE <===========================
+// This file contains the proto file for the Anime Related Objects.
+// ==========================================================================
+
+enum AnimeGenre { // --------------------------> ENUM FOR THE GENRES OF THE ANIME
+    ACTION = 0;
+    ADVENTURE = 1;
+    COMEDY = 2;
+    DRAMA = 3;
+    FANTASY = 4;
+    HORROR = 5;
+    MYSTERY = 6;
+    ROMANCE = 7;
+    SCI_FI = 8;
+    THRILLER = 9;
+}
+
+message Anime { // --------------------------> MESSAGE FOR ANIME
+    string name = 1;
+    repeated AnimeGenre genres = 2;
+    int32 episodes = 3;
+    float score = 4;
+    string aired = 5;
+    string synopsis = 6;
+}

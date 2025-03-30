@@ -1,0 +1,44 @@
+syntax = "proto3";
+import "Common/Anime.proto";
+
+// ===========================> ANIMEREPOSITORY PROTO FILE <===========================
+// This file contains the proto file for the AnimeRepository service.
+// The AnimeRepository service is responsible for asking the DataBase for anime data,
+// ====================================================================================
+
+message animes_Request {} // --------------------------> REQUEST FOR GETTING ALL ANIMES
+
+message animes_Response {
+    repeated Anime animes = 1;
+}
+
+message anime_by_name_Request { // ----------------> REQUEST FOR GETTING ANIME BY NAME
+    string anime_name = 1;
+}
+
+message anime_by_name_Response {
+    Anime anime = 1;
+}
+
+message multiple_anime_by_name_Request { // -------------> REQUEST FOR GETTING MORE THAN ONE ANIME
+    repeated string anime_names = 1; // List of anime names to get
+}
+
+message multiple_anime_by_name_Response {
+    repeated Anime animes = 1;
+}
+
+message anime_by_genre_Request { // -------------> REQUEST FOR GETTING ANIME BY GENRE
+    repeated AnimeGenre anime_genres = 1;
+}
+
+message anime_by_genre_Response {
+    repeated Anime animes = 1;
+}
+
+service AnimeRepository { // --------------------------> SERVICE FOR ANIMEREPOSITORY
+    rpc Animes (animes_Request) returns (animes_Response);
+    rpc AnimeByName (anime_by_name_Request) returns (anime_by_name_Response);
+    rpc MultipleAnimeByName (multiple_anime_by_name_Request) returns (multiple_anime_by_name_Response);
+    rpc AnimeRelatedByGenre (anime_by_genre_Request) returns (anime_by_genre_Response);
+}

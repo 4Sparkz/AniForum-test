@@ -1,0 +1,73 @@
+syntax = "proto3";
+import "Common/Topic.proto";
+
+message MostUsedTopicsRequest {}
+
+message MostUsedTopicsResponse {
+    repeated Topic topics = 1;
+}
+
+message TopicSubscribersRequest {
+    repeated string topicnames = 1;
+}
+
+message TopicSubscribersResponse {
+    repeated string subscribers = 1;
+}
+
+message RecomendationRequest {
+    string theme = 1;
+}
+
+message RecomendationResponse {
+    repeated string publicationNames = 1;
+}
+
+message CreateTopicRequest {
+    string topicname = 1;
+}
+
+message CreateTopicResponse {
+    string topicname = 1;
+}
+
+message GetTopicsRequest {}
+
+message GetTopicsResponse {
+    repeated Topic topics = 1;
+}
+
+message GetTopicRequest {
+    string topicname = 1;
+}
+
+message GetTopicResponse {
+    Topic topic = 1;
+}
+
+message PublishMessageInTopicRequest {
+    string topicname = 1;
+    string publicationname = 2;
+    Message message = 3;
+}
+
+message PublishImageInTopicRequest {
+    string topicname = 1;
+    string publicationname = 2;
+    Image image = 3;
+}
+
+message PublishInTopicResponse {
+    string publicationname = 1;
+}
+
+service TopicRepository {
+    rpc MostUsedTopics (MostUsedTopicsRequest) returns (MostUsedTopicsResponse);
+    rpc TopicSubscribers (TopicSubscribersRequest) returns (TopicSubscribersResponse);
+    rpc Recomendation (RecomendationRequest) returns (RecomendationResponse);
+    rpc GetTopics (GetTopicsRequest) returns (GetTopicsResponse);
+    rpc CreateTopic (CreateTopicRequest) returns (CreateTopicResponse);
+    rpc GetTopic (GetTopicRequest) returns (GetTopicResponse);
+    rpc PublishMessage (PublishMessageInTopicRequest) returns (PublishInTopicResponse);
+    rpc PublishImage (PublishImageInTopicRequest) returns (PublishInTopicResponse);
+}

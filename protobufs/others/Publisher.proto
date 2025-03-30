@@ -1,0 +1,44 @@
+syntax = "proto3";
+import "Common/Topic.proto";
+
+message GetTopicsRequest {}
+
+message GetTopicsResponse {
+    repeated Topic topics = 1;
+}
+
+message CreateTopicRequest {
+    string topicname = 1;
+}
+
+message CreateTopicResponse {
+    string topicname = 1;
+}
+
+message GetTopicRequest {
+    string topicname = 1;
+}
+
+message GetTopicResponse {
+    Topic topic = 1;
+}
+
+message PublishInTopicRequest {
+    string topicname = 1;
+    string publicationname = 2;
+    oneof content {
+        Message message = 3;
+        Image image = 4;
+    }
+}
+
+message PublishInTopicResponse {
+    string publicationname = 1;
+}
+
+service Publisher {
+    rpc GetTopics (GetTopicsRequest) returns (GetTopicsResponse);
+    rpc CreateTopic (CreateTopicRequest) returns (CreateTopicResponse);
+    rpc GetTopic (GetTopicRequest) returns (GetTopicResponse);
+    rpc Publish (PublishInTopicRequest) returns (PublishInTopicResponse);
+}

@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+import "Common/User.proto";
+
+// ===========================> USERREPOSITORY PROTO FILE <===========================
+// This file contains the proto file for the UserRepository service.
+// The UserRepository service is responsible for asking the DataBase for user data,
+// ====================================================================================
+
+message get_user_Request { // --------------------------> REQUEST FOR GETTING USER BY NAME
+    string user_name = 1;
+}
+
+message get_user_Response {
+    User user = 1;
+}
+
+message get_all_users_Request {} // --------------------------> REQUEST FOR GETTING ALL USERS
+
+message get_all_users_Response {
+    repeated User users = 1;
+}
+
+message get_users_that_watched_anime_Request { // -------------> REQUEST FOR GETTING USERS THAT WATCHED ONE OF THOSE ANIMES
+    repeated string anime_names = 1;
+}
+
+message get_users_that_watched_anime_Response {
+    repeated User users = 1;
+}
+
+message update_user_Request{ // ----------------------------> REQUEST FOR UPDATING A USER
+    User user = 1;
+}
+
+message update_user_Response{
+    bool success = 1;
+}
+
+service UserRepository { // --------------------------> SERVICE FOR USERREPOSITORY
+    rpc GetUser (get_user_Request) returns (get_user_Response);
+    rpc GetAllUsers (get_all_users_Request) returns (get_all_users_Response);
+    rpc GetUsersThatWatchedAnime (get_users_that_watched_anime_Request) returns (get_users_that_watched_anime_Response);
+    rpc UpdateUser (update_user_Request) returns (update_user_Response);
+}
